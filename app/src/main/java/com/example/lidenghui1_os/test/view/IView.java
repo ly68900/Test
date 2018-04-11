@@ -6,4 +6,5 @@ package com.example.lidenghui1_os.test.view;
 
 public interface IView {
     void settext(String text);
+    void cleantext();
 }

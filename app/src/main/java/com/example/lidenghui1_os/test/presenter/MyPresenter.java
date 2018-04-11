@@ -22,5 +22,9 @@ public class MyPresenter  {
     public void senddata(){
         mdataIMPL.SendData();
         iView.settext(mdataIMPL.getResult());
+
+    }
+    public void cleanAll(){
+        iView.cleantext();
     }
 }

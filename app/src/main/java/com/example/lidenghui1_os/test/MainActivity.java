@@ -30,7 +30,6 @@ public class MainActivity extends Activity implements IView{
     private EditText data;
     private EditText url;
     private EditText key;
-    private TextView clean;
     ArrayList<String> list=new ArrayList<String>();
 
 
@@ -38,13 +37,14 @@ public class MainActivity extends Activity implements IView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        myPresenter=new MyPresenter(this,list);
+
+
         Button button=findViewById(R.id.download);
         textView=findViewById(R.id.Result);
         data=findViewById(R.id.editText3);
         url=findViewById(R.id.editText);
         key=findViewById(R.id.editText2);
-        clean=findViewById(R.id.clean);
+        TextView clean = findViewById(R.id.clean);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +53,9 @@ public class MainActivity extends Activity implements IView{
                     list.add(key.getText().toString());
                     list.add(data.getText().toString());
                     list.add(url.getText().toString());
+                    myPresenter=new MyPresenter(MainActivity.this,list);
+
+                    myPresenter.senddata();
 
                 }else {
                     Toast.makeText(getApplicationContext(),"参数不能为空",Toast.LENGTH_LONG).show();
@@ -69,9 +72,7 @@ public class MainActivity extends Activity implements IView{
         clean.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!textView.getText().equals("")){
-                    textView.setText("");
-                }
+
 
             }
         });
@@ -79,6 +80,13 @@ public class MainActivity extends Activity implements IView{
 
     @Override
     public void settext(String text) {
+        textView.setText(text);
+    }
 
+    @Override
+    public void cleantext() {
+        if (!textView.getText().equals("")){
+            myPresenter.cleanAll();
+        }
     }
 }
